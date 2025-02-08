@@ -1,0 +1,176 @@
+      
+
+
+
+
+
+  html:
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Telephone Number Validator</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Telephone Number Validator</h1>
+            <hr>
+            <p>Enter a phone number here:</p>
+        </header>
+        <div class="inputs">
+            <input type="text" id="user-input" >
+            <button id="check-btn">Check Number</button>
+            <button id="clear-btn">Clear Results</button>
+        </div>
+        <div id="results-div"></div>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+    CSS CODE:
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f7f7f7;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.wrapper {
+    background: lightgray;
+    max-width: 600px;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.inputs {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column; /* Change to column direction */
+    align-items: center;
+}
+
+#user-input {
+    width: 100%; /* Occupy full width */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#check-btn, #clear-btn {
+    width: 100%; /* Occupy full width */
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+#check-btn:hover, #clear-btn:hover {
+    background-color: #0056b3;
+}
+
+#results-div {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#results-div.valid {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+#results-div.invalid {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
+    JAVASCRIPT CODE:
+
+document.getElementById('check-btn').addEventListener('click', function() {
+    // Get input value
+    const inputValue = document.getElementById('user-input').value;
+
+    // Check if the input value is empty
+    if (inputValue.trim() === '') {
+        alert('Please provide a phone number');
+        return;
+    }
+
+    // Regular expression for US numbers
+    const regex = /^(1\s?)?(\(\d{3}\)|\d{3})([\s\-]?)\d{3}([\s\-]?)\d{4}$/;
+
+    // Test input value against the regex pattern
+    const isValid = regex.test(inputValue);
+
+    // Get the results-div element
+    const resultsDiv = document.getElementById('results-div');
+
+    // Display result
+    if (isValid) {
+        resultsDiv.textContent = `Valid US number: ${inputValue}`;
+        resultsDiv.className = 'valid';
+    } else {
+        resultsDiv.textContent = `Invalid US number: ${inputValue}`;
+        resultsDiv.className = 'invalid';
+    }
+});
+
+document.getElementById('clear-btn').addEventListener('click', function() {
+    // Clear the content of the results-div element
+    document.getElementById('results-div').textContent = '';
+    document.getElementById('results-div').className = '';
+});
+
+
+//Γενικές σημειώσεις
+//two event listeners. one to check, one to clear
+
+//when check, it checks value if empty, uses the regular expression to compare number
+
+//display
+
+
+
+
+
+

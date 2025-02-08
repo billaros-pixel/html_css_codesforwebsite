@@ -1,0 +1,149 @@
+HTML CODE
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Documentation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav id="navbar">
+    <header>Technical Documentation</header>
+    <a class="nav-link" href="#Introduction">Introduction</a>
+    <a class="nav-link" href="#Getting_Started">Getting Started</a>
+    <a class="nav-link" href="#Features">Features</a>
+    <a class="nav-link" href="#Examples">Examples</a>
+    <a class="nav-link" href="#API">API</a>
+  </nav>
+  
+  <main id="main-doc">
+    <section class="main-section" id="Introduction">
+      <header>Introduction</header>
+      <p>This is the introduction section. It provides an overview of the documentation.</p>
+      <p>Here you will find the basic information required to get started.</p>
+      <code>console.log('Hello, world!');</code>
+      <code>const example = () => 'example';</code>
+      <p>Additional introductory information can be added here.</p>
+    </section>
+    
+    <section class="main-section" id="Getting_Started">
+      <header>Getting Started</header>
+      <p>Instructions to get started with the project.</p>
+      <code>npm install my-package</code>
+      <ul>
+        <li>Step 1: Install the package.</li>
+        <li>Step 2: Import the package.</li>
+      </ul>
+      <p>Follow these steps to set up your environment.</p>
+    </section>
+    
+    <section class="main-section" id="Features">
+      <header>Features</header>
+      <p>Details about the features of the product.</p>
+      <code>function feature() { return 'feature'; }</code>
+      <p>Each feature is designed to make your life easier.</p>
+    </section>
+    
+    <section class="main-section" id="Examples">
+      <header>Examples</header>
+      <p>Examples of how to use the features.</p>
+      <ul>
+        <li>Example 1: Basic usage</li>
+        <li>Example 2: Advanced usage</li>
+        <li>Example 3: Customization</li>
+      </ul>
+      <code>const example = 'example';</code>
+      <p>Additional examples can be included here.</p>
+    </section>
+    
+    <section class="main-section" id="API">
+      <header>API</header>
+      <p>API documentation and endpoints.</p>
+      <code>apiCall()</code>
+      <p>Details on how to interact with the API.</p>
+    </section>
+  </main>
+</body>
+</html>
+
+
+CSS CODE
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav#navbar {
+  width: 250px;
+  background: #f4f4f4;
+  padding: 1rem;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+nav#navbar header {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+nav#navbar a.nav-link {
+  display: block;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: #333;
+}
+
+nav#navbar a.nav-link:hover {
+  background: #ddd;
+}
+
+main#main-doc {
+  margin-left: 270px;
+  padding: 2rem;
+  flex: 1;
+}
+
+section.main-section {
+  margin-bottom: 2rem;
+}
+
+section.main-section header {
+  font-size: 1.5rem;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+code {
+  display: block;
+  background: #f9f9f9;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  margin: 1rem 0;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav#navbar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  main#main-doc {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}
+

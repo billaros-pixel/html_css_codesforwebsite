@@ -1,0 +1,137 @@
+html code:
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cash Register</title>
+</head>
+<body>
+    <input id="cash" placeholder="Enter cash amount">
+    <div id="change-due"></div>
+    <button id="purchase-btn">Complete Purchase</button>
+    <script src="./script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+javascript code:
+
+
+
+let price = 19.5;
+let cid = [
+  ["PENNY", 1.01],
+  ["NICKEL", 2.05],
+  ["DIME", 3.1],
+  ["QUARTER", 4.25],
+  ["ONE", 90],
+  ["FIVE", 55],
+  ["TEN", 20],
+  ["TWENTY", 60],
+  ["ONE HUNDRED", 100]
+];
+
+const cash = document.getElementById("cash");
+const change = document.getElementById("change-due");
+const sale = document.getElementById("purchase-btn");
+
+const currencyUnits = [
+  ["PENNY", 0.01],
+  ["NICKEL", 0.05],
+  ["DIME", 0.10],
+  ["QUARTER", 0.25],
+  ["ONE", 1.00],
+  ["FIVE", 5.00],
+  ["TEN", 10.00],
+  ["TWENTY", 20.00],
+  ["ONE HUNDRED", 100.00]
+];
+
+sale.addEventListener("click", () => {
+  const cashValue = parseFloat(cash.value);
+  const changeDue = parseFloat((cashValue - price).toFixed(2)); // Ensure rounding to 2 decimal places
+
+  if (cashValue < price) {
+    alert("Customer does not have enough money to purchase the item");
+    return;
+  }
+
+  if (cashValue === price) {
+    change.innerText = "No change due - customer paid with exact cash";
+    return;
+  }
+
+  const changeResult = getChange(changeDue, cid);
+
+  if (changeResult.status === "INSUFFICIENT_FUNDS" || changeResult.status === "CLOSED") {
+    change.innerText = `Status: ${changeResult.status} ${formatChange(changeResult.change)}`;
+  } else {
+    let changeText = `Status: OPEN ${formatChange(changeResult.change)}`;
+    change.innerText = changeText.trim();
+  }
+});
+
+const getChange = (changeDue, cid) => {
+  let totalCid = parseFloat(cid.reduce((sum, [_, amount]) => sum + amount, 0).toFixed(2));
+  
+  // Check if there's not enough money in the drawer
+  if (totalCid < changeDue) {
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+
+  let changeArray = [];
+  let remainingChange = changeDue;
+
+  // Go through the currencyUnits array in reverse order (largest denomination first)
+  for (let i = currencyUnits.length - 1; i >= 0; i--) {
+    let unit = currencyUnits[i][0];
+    let unitValue = currencyUnits[i][1];
+    let unitInDrawer = parseFloat(cid[i][1].toFixed(2));
+
+    if (unitValue <= remainingChange && unitInDrawer > 0) {
+      let amountFromUnit = 0;
+      // While there is sufficient change available and required
+      while (remainingChange >= unitValue && unitInDrawer > 0) {
+        remainingChange = parseFloat((remainingChange - unitValue).toFixed(2));
+        unitInDrawer = parseFloat((unitInDrawer - unitValue).toFixed(2));
+        amountFromUnit += unitValue;
+      }
+
+      if (amountFromUnit > 0) {
+        changeArray.push([unit, parseFloat(amountFromUnit.toFixed(2))]);
+      }
+    }
+  }
+
+  if (remainingChange > 0) {
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  }
+
+  // Adjust 'CLOSED' status logic to ensure the return of exact change in the correct order
+  if (totalCid === changeDue) {
+    return { status: "CLOSED", change: cid.filter(([_, amount]) => amount > 0) };
+  }
+
+  return { status: "OPEN", change: changeArray };
+};
+
+const formatChange = changeArray => {
+  if (changeArray.length === 0) return '';
+
+// Make sure each change entry is formatted correctly and handle cases with zero amounts
+  return changeArray.map(([unit, amount]) => `${unit}: $${amount.toFixed(2)}`).join(" ");
+};
+
+// Example test cases
+console.log(formatChange([["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));

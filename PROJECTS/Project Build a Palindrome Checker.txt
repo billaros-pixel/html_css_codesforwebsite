@@ -1,0 +1,87 @@
+
+
+
+
+
+      HTML CODE:
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palindrome Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    input, button {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="text-input" placeholder="Enter text">
+    <button id="check-btn">Check</button>
+    <p id="result"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+    JAVASCRIPT CODE:
+
+
+
+
+document.getElementById('check-btn').addEventListener('click', function() {
+  // Get the input value
+  const inputText = document.getElementById('text-input').value;
+  const resultElement = document.getElementById('result');
+  
+  // Check if input is empty
+  if (inputText.trim() === '') {
+    alert('Please input a value');
+    resultElement.textContent = '';
+    return;
+  }
+
+  // Function to clean and normalize the input string
+  function cleanString(str) {
+    return str
+      .toLowerCase()         // Convert to lowercase
+      .replace(/[^a-z0-9]/g, '');  // Remove non-alphanumeric characters
+  }
+
+  // Function to check if a string is a palindrome
+  function isPalindrome(str) {
+    const cleanedString = cleanString(str);
+    const reversedString = cleanedString.split('').reverse().join('');
+    return cleanedString === reversedString;
+  }
+
+  // Check if the input string is a palindrome
+  const cleanedInput = inputText.trim(); // Remove surrounding whitespace
+  if (isPalindrome(cleanedInput)) {
+    resultElement.textContent = `${cleanedInput} is a palindrome`;
+  } else {
+    resultElement.textContent = `${cleanedInput} is not a palindrome`;
+  }
+});
